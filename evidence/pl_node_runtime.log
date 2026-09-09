@@ -1,0 +1,11 @@
+[INFO] [launch]: All log files can be found below /root/.ros/log/2026-09-05-15-22-15-273614-Suzuha-50827
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [pointlio_mapping-1]: process started with pid [50828]
+[pointlio_mapping-1] lidar_type: 1
+[pointlio_mapping-1] ~~~~/root/pointlio_ros2_ws/src/point_lio/ file opened
+[pointlio_mapping-1] [INFO] [1788592963.973007780] [point_lio]: IMU Initializing: 1.0 %
+[pointlio_mapping-1] [WARN] [1788592963.973162704] [point_lio]: Reset ImuProcess
+[pointlio_mapping-1] [INFO] [1788592964.109019084] [point_lio]: IMU Initializing: 20.0 %
+[pointlio_mapping-1] [INFO] [1788592964.176995489] [point_lio]: IMU Initializing: 57.0 %
+[pointlio_mapping-1] [INFO] [1788592964.177054711] [point_lio]: IMU Initializing: 100.0 %
+[pointlio_mapping-1] first imu time: 0.100000

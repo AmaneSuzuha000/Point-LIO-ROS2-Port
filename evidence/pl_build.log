@@ -1,0 +1,74 @@
+Starting >>> point_lio
+--- stderr: point_lio
+Current CPU architecture: x86_64
+Processor number: 16
+In file included from /usr/include/boost/bind.hpp:30,
+                 from /root/pointlio_ros2_ws/src/point_lio/include/../include/IKFoM/IKFoM_toolkit/esekfom/esekfom.hpp:42,
+                 from /root/pointlio_ros2_ws/src/point_lio/include/common_lib.h:13,
+                 from /root/pointlio_ros2_ws/src/point_lio/src/IMU_Processing.h:12,
+                 from /root/pointlio_ros2_ws/src/point_lio/src/IMU_Processing.cpp:1:
+/usr/include/boost/bind.hpp:36:1: note: ‘#pragma message: The practice of declaring the Bind placeholders (_1, _2, ...) in the global namespace is deprecated. Please use <boost/bind/bind.hpp> + using namespace boost::placeholders, or define BOOST_BIND_GLOBAL_PLACEHOLDERS to retain the current behavior.’
+   36 | BOOST_PRAGMA_MESSAGE(
+      | ^~~~~~~~~~~~~~~~~~~~
+In file included from /usr/include/boost/bind.hpp:30,
+                 from /root/pointlio_ros2_ws/src/point_lio/include/../include/IKFoM/IKFoM_toolkit/esekfom/esekfom.hpp:42,
+                 from /root/pointlio_ros2_ws/src/point_lio/include/common_lib.h:13,
+                 from /root/pointlio_ros2_ws/src/point_lio/src/Estimator.h:4,
+                 from /root/pointlio_ros2_ws/src/point_lio/src/Estimator.cpp:2:
+/usr/include/boost/bind.hpp:36:1: note: ‘#pragma message: The practice of declaring the Bind placeholders (_1, _2, ...) in the global namespace is deprecated. Please use <boost/bind/bind.hpp> + using namespace boost::placeholders, or define BOOST_BIND_GLOBAL_PLACEHOLDERS to retain the current behavior.’
+   36 | BOOST_PRAGMA_MESSAGE(
+      | ^~~~~~~~~~~~~~~~~~~~
+In file included from /usr/include/boost/bind.hpp:30,
+                 from /root/pointlio_ros2_ws/src/point_lio/include/../include/IKFoM/IKFoM_toolkit/esekfom/esekfom.hpp:42,
+                 from /root/pointlio_ros2_ws/src/point_lio/include/common_lib.h:13,
+                 from /root/pointlio_ros2_ws/src/point_lio/src/li_initialization.h:3,
+                 from /root/pointlio_ros2_ws/src/point_lio/src/li_initialization.cpp:1:
+/usr/include/boost/bind.hpp:36:1: note: ‘#pragma message: The practice of declaring the Bind placeholders (_1, _2, ...) in the global namespace is deprecated. Please use <boost/bind/bind.hpp> + using namespace boost::placeholders, or define BOOST_BIND_GLOBAL_PLACEHOLDERS to retain the current behavior.’
+   36 | BOOST_PRAGMA_MESSAGE(
+      | ^~~~~~~~~~~~~~~~~~~~
+In file included from /usr/include/boost/smart_ptr/detail/sp_thread_sleep.hpp:22,
+                 from /usr/include/boost/smart_ptr/detail/yield_k.hpp:23,
+                 from /usr/include/boost/smart_ptr/detail/spinlock_gcc_atomic.hpp:14,
+                 from /usr/include/boost/smart_ptr/detail/spinlock.hpp:42,
+                 from /usr/include/boost/smart_ptr/detail/spinlock_pool.hpp:25,
+                 from /usr/include/boost/smart_ptr/shared_ptr.hpp:29,
+                 from /usr/include/boost/shared_ptr.hpp:17,
+                 from /usr/include/boost/date_time/microsec_time_clock.hpp:18,
+                 from /usr/include/boost/interprocess/detail/posix_time_types_wrk.hpp:31,
+                 from /usr/include/boost/interprocess/detail/os_thread_functions.hpp:36,
+                 from /usr/include/boost/interprocess/sync/file_lock.hpp:26,
+                 from /usr/include/pcl-1.12/pcl/io/pcd_io.h:46,
+                 from /opt/ros/humble/include/pcl_conversions/pcl_conversions/pcl_conversions.h:73,
+                 from /root/pointlio_ros2_ws/src/point_lio/src/preprocess.h:5,
+                 from /root/pointlio_ros2_ws/src/point_lio/src/parameters.h:10,
+                 from /root/pointlio_ros2_ws/src/point_lio/src/parameters.cpp:1:
+/usr/include/boost/bind.hpp:36:1: note: ‘#pragma message: The practice of declaring the Bind placeholders (_1, _2, ...) in the global namespace is deprecated. Please use <boost/bind/bind.hpp> + using namespace boost::placeholders, or define BOOST_BIND_GLOBAL_PLACEHOLDERS to retain the current behavior.’
+   36 | BOOST_PRAGMA_MESSAGE(
+      | ^~~~~~~~~~~~~~~~~~~~
+In file included from /usr/include/boost/smart_ptr/detail/sp_thread_sleep.hpp:22,
+                 from /usr/include/boost/smart_ptr/detail/yield_k.hpp:23,
+                 from /usr/include/boost/smart_ptr/detail/spinlock_gcc_atomic.hpp:14,
+                 from /usr/include/boost/smart_ptr/detail/spinlock.hpp:42,
+                 from /usr/include/boost/smart_ptr/detail/spinlock_pool.hpp:25,
+                 from /usr/include/boost/smart_ptr/shared_ptr.hpp:29,
+                 from /usr/include/boost/shared_ptr.hpp:17,
+                 from /usr/include/boost/date_time/microsec_time_clock.hpp:18,
+                 from /usr/include/boost/interprocess/detail/posix_time_types_wrk.hpp:31,
+                 from /usr/include/boost/interprocess/detail/os_thread_functions.hpp:36,
+                 from /usr/include/boost/interprocess/sync/file_lock.hpp:26,
+                 from /usr/include/pcl-1.12/pcl/io/pcd_io.h:46,
+                 from /opt/ros/humble/include/pcl_conversions/pcl_conversions/pcl_conversions.h:73,
+                 from /root/pointlio_ros2_ws/src/point_lio/src/laserMapping.cpp:5:
+/usr/include/boost/bind.hpp:36:1: note: ‘#pragma message: The practice of declaring the Bind placeholders (_1, _2, ...) in the global namespace is deprecated. Please use <boost/bind/bind.hpp> + using namespace boost::placeholders, or define BOOST_BIND_GLOBAL_PLACEHOLDERS to retain the current behavior.’
+   36 | BOOST_PRAGMA_MESSAGE(
+      | ^~~~~~~~~~~~~~~~~~~~
+---
+[Processing: point_lio]
+[Processing: point_lio]
+Finished <<< point_lio [1min 18s]
+
+Summary: 1 package finished [1min 19s]
+  1 package had stderr output: point_lio
+BUILD_EXIT=0
+errors:   0
+warnings: 0

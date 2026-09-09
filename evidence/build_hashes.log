@@ -1,0 +1,28 @@
+# build artefact + generator hashes
+# stat/md5sum/cmp run on the tree built by build_and_verify.sh (WS=/root/fastlio_verify_ws)
+
+## binary produced by the clean build (§2)
+  size_bytes = 1679248
+  md5        = 04f48b55e16a4a1c9e3947b336620c1f
+
+## generator reproducibility (§7.1)
+##   regenerate from scratch into /tmp/regen3, compare with repo and build tree
+  md5 fresh-regen src/fastlio_core.cpp   = 76da2a64c7d5e62dccc3e61a26a46c9f
+  md5 build-tree  src/fastlio_core.cpp   = 76da2a64c7d5e62dccc3e61a26a46c9f
+  md5 repo        src/fastlio_core.cpp   = 76da2a64c7d5e62dccc3e61a26a46c9f
+  md5 fresh-regen include/fastlio_core.h = b9bc155a11c7f65d034f395b60965957
+  md5 build-tree  include/fastlio_core.h = b9bc155a11c7f65d034f395b60965957
+  md5 repo        include/fastlio_core.h = b9bc155a11c7f65d034f395b60965957
+
+## repo vs build tree: every delivered file (§7.1, 11 files)
+  SAME  src/ros2node.cpp
+  SAME  include/ros2node.h
+  SAME  src/main.cpp
+  SAME  CMakeLists.txt
+  SAME  src/fastlio_core.cpp
+  SAME  include/fastlio_core.h
+  SAME  config/robot.yaml
+  SAME  rviz/fast_lio2.rviz
+  SAME  package.xml
+  SAME  msg/VIO.msg
+  SAME  msg/Pose6D.msg

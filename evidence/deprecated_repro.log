@@ -1,0 +1,29 @@
+# Deterministic reproduction of the 2 -Wdeprecated diagnostics seen in the FIRST verified build
+# (before the extract_core.py rule-order / missing-rule fix).
+# The pre-fix build log itself was not committed; this repro is the evidence instead -
+# same two diagnostics, same two causes, produced from the exact bad spellings.
+#
+# command:
+#   INC=$(for d in /opt/ros/humble/include/*/; do printf "-I%s " "$d"; done)
+#   INC="$INC -I/tmp/livox_ws/install/livox_ros_driver2/include/livox_ros_driver2"
+#   g++ -std=c++17 -fsyntax-only $INC deprecated_repro.cpp
+#
+# rc=0 (-fsyntax-only: warnings only, no link needed)
+
+deprecated_repro.cpp:6:60: warning: ‘livox_ros_driver2::msg::CustomMsg_<std::allocator<void> >::ConstPtr’ is deprecated [-Wdeprecated-declarations]
+    6 | void a(const livox_ros_driver2::msg::CustomMsg::ConstPtr &m) { (void)m; }
+      |                                                            ^
+In file included from livox_ros_driver2/msg/custom_msg.hpp:7,
+                 from deprecated_repro.cpp:5:
+livox_ros_driver2/msg/detail/custom_msg__struct.hpp:165:5: note: declared here
+  165 |     ConstPtr;
+      |     ^~~~~~~~
+deprecated_repro.cpp: In function ‘void b()’:
+deprecated_repro.cpp:7:40: warning: ‘sensor_msgs::msg::Imu_<std::allocator<void> >::Ptr’ is deprecated [-Wdeprecated-declarations]
+    7 | void b() { sensor_msgs::msg::Imu::Ptr p(new sensor_msgs::msg::Imu()); (void)p; }
+      |                                        ^
+In file included from sensor_msgs/msg/imu.hpp:7,
+                 from deprecated_repro.cpp:4:
+sensor_msgs/msg/detail/imu__struct.hpp:180:5: note: declared here
+  180 |     Ptr;
+      |     ^~~

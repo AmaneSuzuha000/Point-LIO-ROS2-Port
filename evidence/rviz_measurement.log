@@ -1,0 +1,25 @@
+# rviz2 / cloud_registered measurement log
+# Three INDEPENDENT runs on the same built tree (not one transcript):
+
+## A. concurrent-subscriber probe (30s window, probe started before node+feeder)
+##    node invoked exactly as build_and_verify.sh:123-129
+  CLOUD_MSGS 211
+  ODOM_MSGS 212
+  FIRST cloud pts=1200 frame=camera_init point_step=48
+  MAX pts in a scan = 1200
+  CLOUD_VERDICT PASS
+
+## B. rviz2 screenshot run (feeder in FEED_HOLD mode, 40s accumulation)
+  node: IMU Initial Done count = 1
+  node: Error LiDAR Type count = 0
+  viewport metric (recomputed from the committed PNG):
+  viewport x=[442,974]  lit=14.36%  cloud_px=4718 (1.106%)
+
+## C. 28s burst recording (E_rviz2_fastlio.gif, one frame every 2s)
+##    scene is static by design and rviz Decay Time=0, so frames are identical;
+##    what it proves is the topic keeps supplying data for the whole window.
+  frames (counted from coalesced PNGs): 14
+  per-frame coloured pixels: [4290, 4290, 4290, 4290, 4290, 4290, 4290, 4290, 4290, 4290, 4290, 4290, 4290, 4290]
+  min=4290 max=4290  -> every frame carries the cloud (Decay Time=0 would black out on a gap)
+  node during recording: IMU Initial Done = 1
+  node during recording: Error LiDAR Type = 0

@@ -1,0 +1,60 @@
+# --- ROS2 / colcon ---
+build/
+install/
+devel/
+log/
+*/build/
+*/install/
+*/devel/
+*/log/
+COLCON_IGNORE
+*.rosinstall
+setup.bash
+setup.sh
+local_setup.bash
+local_setup.sh
+
+# --- catkin leftovers ---
+.catkin_workspace
+.catkin_tools/
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+env/
+
+# --- 编译产物 / 模型 / 大文件 ---
+*.o
+*.obj
+*.a
+*.so
+*.dll
+*.dylib
+*.class
+*.jar
+*.bag
+*.onnx
+*.engine
+*.plan
+*.tflite
+
+# --- 空日志占位（运行期生成） ---
+point_lio_ros2/Log/*.txt
+
+# --- 编辑器 / IDE / OS ---
+.idea/
+.vscode/
+.vs/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# --- 本地私有文件 ---
+*.local
+.env

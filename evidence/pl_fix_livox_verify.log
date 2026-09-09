@@ -1,0 +1,19 @@
+--- syntax check ---
+SYNTAX-OK
+--- run on pristine ---
+FIXED: /tmp/fixtest/pkg/CMakeLists.txt
+  LIVOX_INTERFACES = livox_ros_driver2   (与消息命名空间一致 -> dlopen 能命中)
+  component lib    = livox_driver2_component (8 处引用已同步)
+  ROS1 分支        = 未改动
+  备份             = /tmp/fixtest/pkg/CMakeLists.txt.orig
+构建验证（应生成 liblivox_ros_driver2__rosidl_typesupport_*.so）：
+  cd <ws> && source /opt/ros/humble/setup.bash && colcon build --packages-select livox_ros_driver2
+  ls install/livox_ros_driver2/lib | grep typesupport
+EXIT=0
+--- byte-compare vs real fixed file ---
+IDENTICAL-TO-REAL-FIX
+--- idempotency (2nd run) ---
+ALREADY-FIXED: /tmp/fixtest/pkg/CMakeLists.txt
+EXIT=0
+42adfb5124104e5ffca2e392b64928893cc952ed5f1f8838ef358e04969a7eab  /tmp/fixtest/pkg/CMakeLists.txt
+42adfb5124104e5ffca2e392b64928893cc952ed5f1f8838ef358e04969a7eab  /root/livox2_ws/src/livox_ros_driver2/CMakeLists.txt

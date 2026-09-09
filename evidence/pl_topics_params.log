@@ -1,0 +1,93 @@
+===== ros2 node list =====
+/point_lio
+
+===== ros2 topic list =====
+/Laser_map
+/aft_mapped_to_init
+/cloud_registered
+/cloud_registered_body
+/livox/imu
+/livox/lidar
+/parameter_events
+/path
+/rosout
+/tf
+
+===== ros2 topic info /livox/lidar -v =====
+Type: livox_ros_driver2/msg/CustomMsg
+
+Publisher count: 0
+
+Subscription count: 1
+
+Node name: point_lio
+Node namespace: /
+Topic type: livox_ros_driver2/msg/CustomMsg
+Endpoint type: SUBSCRIPTION
+GID: 01.0f.77.0c.8c.c6.4d.f7.00.00.00.00.00.00.13.04.00.00.00.00.00.00.00.00
+QoS profile:
+  Reliability: BEST_EFFORT
+  History (Depth): UNKNOWN
+  Durability: VOLATILE
+  Lifespan: Infinite
+  Deadline: Infinite
+  Liveliness: AUTOMATIC
+  Liveliness lease duration: Infinite
+
+
+===== ros2 topic info /aft_mapped_to_init -v =====
+Type: nav_msgs/msg/Odometry
+
+Publisher count: 1
+
+Node name: point_lio
+Node namespace: /
+Topic type: nav_msgs/msg/Odometry
+Endpoint type: PUBLISHER
+GID: 01.0f.77.0c.8c.c6.4d.f7.00.00.00.00.00.00.18.03.00.00.00.00.00.00.00.00
+QoS profile:
+  Reliability: RELIABLE
+  History (Depth): UNKNOWN
+  Durability: VOLATILE
+  Lifespan: Infinite
+  Deadline: Infinite
+  Liveliness: AUTOMATIC
+  Liveliness lease duration: Infinite
+
+Subscription count: 0
+
+
+===== ros2 param list /point_lio =====
+  check_satu
+  common.con_frame
+  common.con_frame_num
+  common.cut_frame
+  common.cut_frame_time_interval
+  common.imu_topic
+  common.lid_topic
+  common.time_diff_lidar_to_imu
+  filter_size_map
+  filter_size_surf
+  init_map_size
+  ivox_nearby_type
+  mapping.acc_cov_input
+  mapping.acc_cov_output
+...
+TOTAL_PARAMS=63
+
+===== 抽样 ros2 param get =====
+Double value is: 1.0
+Integer value is: 1
+Double values are: array('d', [0.0, 0.0, -9.81])
+Double value is: 0.005
+
+===== 速率测量：/aft_mapped_to_init（reliable）用 topic hz =====
+average rate: 9.558
+	min: 0.062s max: 0.138s std dev: 0.02471s window: 11
+average rate: 9.678
+
+===== 速率测量：/cloud_registered（best_effort）用 echo --qos-profile sensor_data =====
+cloud_registered: 78 msgs in 9s -> 8.7 Hz
+
+===== /aft_mapped_to_init 类型数（必须只有 1 种，>1 说明有残留节点）=====
+Type: nav_msgs/msg/Odometry

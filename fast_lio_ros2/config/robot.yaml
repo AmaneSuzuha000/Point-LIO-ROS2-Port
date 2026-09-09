@@ -1,0 +1,57 @@
+# ROS1 时代 robot.yaml 被 <rosparam command="load"/> 注入参数服务器，键名与节点里的
+# nh.getParam("...") 一致即可；ROS2 的 Node() 直接吃 YAML，但有两道关卡：
+#
+#   关卡一：必须有 ros__parameters 顶层键，否则整份文件被静默忽略。
+#   关卡二：键名必须与节点 declare_parameter() 里的名字【逐字】相同，
+#           包括 mapping. / preprocess. / common. / publish. 这些前缀。
+#           名字写错不会报错、不会警告，只是继续用默认值。
+#
+# 本文件早期版本只过了关卡一，没过关卡二（写的是 gyr_cov / scan_rate / acc_cov
+# 这种扁平键）。实测：ros2 param get /fast_lio mapping.acc_cov 返回默认 0.1,
+# 而文件里写的是 0.5 —— 参数根本没进去。下面是按 ros2node.cpp 的声明名改正的版本。
+# 查真实名字的唯一可靠办法：ros2 param list /fast_lio
+
+/**:
+  ros__parameters:
+    # ---- preprocess.* ----
+    preprocess.lidar_type: 1        # 1=AVIA 2=VELO16 3=OUST64 4=MARSIM
+    preprocess.scan_line: 16
+    preprocess.timestamp_unit: 2
+    preprocess.scan_rate: 10
+    preprocess.blind: 0.01
+
+    # ---- mapping.* ----
+    mapping.gyr_cov: 0.1
+    mapping.acc_cov: 0.5
+    mapping.b_gyr_cov: 0.0001
+    mapping.b_acc_cov: 0.0001
+    mapping.filter_size_surf: 0.5
+    mapping.filter_size_map_min: 0.5
+    mapping.cube_side_length: 200.0
+    mapping.det_range: 300.0
+    mapping.fov_degree: 180.0
+    mapping.extrinsic_est_en: true
+    # 外参：IMU 系 -> LiDAR 系（数值与 ROS1 版相同，行主序展平成 9 元素）
+    mapping.extrinsic_T: [0.0, 0.0, 0.0]
+    mapping.extrinsic_R: [1.0, 0.0, 0.0,
+                          0.0, 1.0, 0.0,
+                          0.0, 0.0, 1.0]
+
+    # ---- 无命名空间前缀的两个 ----
+    point_filter_num: 2
+    max_iteration: 4
+
+    # ---- publish.* / common.* ----
+    publish.frequency: 10.0
+    publish.path_en: true
+    # 上游 laserMapping.cpp:762-763 的开关；关掉则 /cloud_registered
+    # 只有话题没有数据（迁移版曾踩过这个坑，见 migration_verify.md 7.3）
+    publish.scan_publish_en: true
+    publish.dense_publish_en: true
+    common.lid_topic: /lidar_points
+    common.imu_topic: /imu
+
+# 注：ROS1 的 robot.yaml 里还有 imu_dt / odom_frame / base_frame / filter_size_corner。
+# 本迁移版的节点【不读】它们——IMU 间隔由消息时间戳推出，坐标系名写死在节点里，
+# corner 降采样在 ROS1 版里也未被使用。留着只会让人以为改了它有效果，所以删掉。
+# 若要把它们变成真参数，需在 ros2node.cpp 里补 declare_parameter + get_parameter_or。

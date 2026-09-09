@@ -1,0 +1,56 @@
+Reading package lists...
+Building dependency tree...
+Reading state information...
+ros-humble-pcl-conversions is already the newest version (2.4.5-2jammy.20260726.121755).
+ros-humble-pcl-ros is already the newest version (2.4.5-2jammy.20260804.202022).
+ros-humble-tf2-eigen is already the newest version (0.25.22-1jammy.20260804.194912).
+0 upgraded, 0 newly installed, 0 to remove and 144 not upgraded.
+
+=== cloning pinned upstream revisions ===
+
+=== generating the migrated package ===
+patched include/common_lib.h
+patched src/IMU_Processing.hpp
+patched src/preprocess.h
+patched src/preprocess.cpp
+files_changed 4
+core bytes 12831 api bytes 5990
+
+=== colcon build ===
+Starting >>> fast_lio
+--- stderr: fast_lio
+In file included from /usr/include/boost/bind.hpp:30,
+                 from /root/fastlio_verify_ws/src/fast_lio/include/IKFoM_toolkit/esekfom/esekfom.hpp:42,
+                 from /root/fastlio_verify_ws/src/fast_lio/include/use-ikfom.hpp:4,
+                 from /root/fastlio_verify_ws/src/fast_lio/src/fastlio_core.cpp:6:
+/usr/include/boost/bind.hpp:36:1: note: ‘#pragma message: The practice of declaring the Bind placeholders (_1, _2, ...) in the global namespace is deprecated. Please use <boost/bind/bind.hpp> + using namespace boost::placeholders, or define BOOST_BIND_GLOBAL_PLACEHOLDERS to retain the current behavior.’
+   36 | BOOST_PRAGMA_MESSAGE(
+      | ^~~~~~~~~~~~~~~~~~~~
+---
+[Processing: fast_lio]
+[Processing: fast_lio]
+Finished <<< fast_lio [1min 19s]
+
+Summary: 1 package finished [1min 19s]
+  1 package had stderr output: fast_lio
+BUILD_OK
+
+=== runtime check: node registers, then produces odometry from synthetic data ===
+SCANS_SENT 8
+ODOM_MSGS 5
+CLOUD_MSGS 4
+CLOUD_MAX_PTS 1200
+  odom pos = (0.0004, -0.0003, 0.0004)
+  odom pos = (0.0005, -0.0005, 0.0006)
+  odom pos = (0.0006, -0.0006, 0.0008)
+  odom pos = (0.0008, -0.0007, 0.0010)
+  odom pos = (0.0009, -0.0007, 0.0012)
+VERDICT PASS
+
+=== assertions ===
+PASS  ESKF initialised
+PASS  odometry published and finite
+PASS  lidar handler reached
+PASS  cloud non-empty after sync
+PASS  /cloud_registered carries points
+FAILURES 0

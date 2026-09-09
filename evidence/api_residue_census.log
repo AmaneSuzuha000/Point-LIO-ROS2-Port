@@ -1,0 +1,26 @@
+# ROS1 API residue census - word-boundary pattern
+# tree: /root/verify_ws/src/fast_lio (9 files byte-identical to repo)
+# PAT: \brosl?os::|\bros::|#include <ros/|ROS_INFO|ROS_WARN|ROS_ERROR|ROS_ASSERT|ROS_DEBUG|->header\.stamp\.toSec|\bNodeHandle\b|\bnh\.|\b_nh\.|dynamic_reconfigure
+
+## algorithm core (must be 0)
+src/fastlio_core.cpp         0
+src/preprocess.cpp           0
+src/preprocess.h             0
+src/IMU_Processing.hpp       0
+include/common_lib.h         0
+include/use-ikfom.hpp        0
+include/so3_math.h           0
+include/Exp_mat.h            0
+CORE_TOTAL 0
+
+## node layer (ROS API is SUPPOSED to live here)
+src/main.cpp                 3
+src/ros2node.cpp             1
+include/ros2node.h           5
+
+## third-party (ikd-Tree + IKFoM_toolkit)
+third_party_hits 0
+
+## note: naive pattern ros:: (no word boundary) yields 2 FALSE POSITIVES:
+50:POINT_CLOUD_REGISTER_POINT_STRUCT(velodyne_ros::Point,
+73:POINT_CLOUD_REGISTER_POINT_STRUCT(ouster_ros::Point,

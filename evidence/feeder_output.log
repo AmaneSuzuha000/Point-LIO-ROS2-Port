@@ -1,0 +1,10 @@
+SCANS_SENT 8
+ODOM_MSGS 5
+CLOUD_MSGS 4
+CLOUD_MAX_PTS 1200
+  odom pos = (0.0004, -0.0003, 0.0004)
+  odom pos = (0.0005, -0.0005, 0.0006)
+  odom pos = (0.0006, -0.0006, 0.0008)
+  odom pos = (0.0008, -0.0007, 0.0010)
+  odom pos = (0.0009, -0.0007, 0.0012)
+VERDICT PASS

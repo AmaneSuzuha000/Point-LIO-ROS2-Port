@@ -1,0 +1,68 @@
+--- /root/pointlio_ros1/package.xml	2026-09-05 11:37:02.860703238 +0800
++++ ./point_lio_ros2/package.xml	2026-09-05 12:22:52.737951000 +0800
+@@ -1,47 +1,32 @@
+ <?xml version="1.0"?>
+-<package>
++<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
++<package format="3">
+   <name>point_lio</name>
+   <version>0.0.0</version>
+-
+   <description>
+-    This is a modified version of LOAM which is original algorithm
+-    is described in the following paper:
+-    J. Zhang and S. Singh. LOAM: Lidar Odometry and Mapping in Real-time.
+-      Robotics: Science and Systems Conference (RSS). Berkeley, CA, July 2014.
++    Point-LIO migrated from ROS1 (catkin) to ROS2 Humble (ament_cmake).
++    Original algorithm: J. Zhang and S. Singh. LOAM: Lidar Odometry and
++    Mapping in Real-time. RSS 2014.
+   </description>
+-
+   <maintainer email="dev@livoxtech.com">claydergc</maintainer>
+-
+   <license>BSD</license>
+-
+   <author email="hdj65822@connect.hku.hk">Dongjiao He</author>
+-  
+-  <buildtool_depend>catkin</buildtool_depend>
+-  <build_depend>geometry_msgs</build_depend>
+-  <build_depend>nav_msgs</build_depend>
+-  <build_depend>roscpp</build_depend>
+-  <build_depend>rospy</build_depend>
+-  <build_depend>std_msgs</build_depend>
+-  <build_depend>sensor_msgs</build_depend>
+-  <build_depend>tf</build_depend>
+-  <build_depend>pcl_ros</build_depend>
+-  <build_depend>livox_ros_driver</build_depend>
+-  <build_depend>message_generation</build_depend>
+ 
+-  <run_depend>geometry_msgs</run_depend>
+-  <run_depend>nav_msgs</run_depend>
+-  <run_depend>sensor_msgs</run_depend>
+-  <run_depend>roscpp</run_depend>
+-  <run_depend>rospy</run_depend>
+-  <run_depend>std_msgs</run_depend>
+-  <run_depend>tf</run_depend>
+-  <run_depend>pcl_ros</run_depend>
+-  <run_depend>livox_ros_driver</run_depend>
+-  <run_depend>message_runtime</run_depend>
++  <buildtool_depend>ament_cmake</buildtool_depend>
++
++  <depend>rclcpp</depend>
++  <depend>sensor_msgs</depend>
++  <depend>nav_msgs</depend>
++  <depend>geometry_msgs</depend>
++  <depend>visualization_msgs</depend>
++  <depend>pcl_conversions</depend>
++  <depend>tf2_ros</depend>
++  <depend>tf2_geometry_msgs</depend>
++  <depend>livox_ros_driver2</depend>
+ 
+-  <test_depend>rostest</test_depend>
+-  <test_depend>rosbag</test_depend>
++  <exec_depend>rviz2</exec_depend>
+ 
+   <export>
++    <build_type>ament_cmake</build_type>
+   </export>
+ </package>

@@ -1,0 +1,27 @@
+# binary reproducibility: same-path vs cross-path (report section 2)
+
+## A: built by build_and_verify.sh at WS=/root/fastlio_verify_ws
+## B: built by the SAME script from a git-archive HEAD at WS=/tmp/reviewer_ws
+
+  A size=1679248
+  A md5 =04f48b55e16a4a1c9e3947b336620c1f
+  B size=1679248
+  B md5 =d9491dd01f383ded2d27a13c63f99f83
+  differing bytes A vs B = 169087
+
+## same-path rebuild: wipe build/install in the B tree, rebuild, compare
+  B rebuilt md5 = d9491dd01f383ded2d27a13c63f99f83
+  B first build md5 was d9491dd01f383ded2d27a13c63f99f83
+  -> SAME PATH: REPRODUCIBLE
+
+## why cross-path differs: __FILE__ inside RCLCPP_* macros -> absolute paths in .rodata
+  A occurrences of its own build dir: 13
+  A occurrences of B build dir      : 0
+  B occurrences of its own build dir: 13
+  B occurrences of A build dir      : 0
+
+## sample of the embedded strings (A)
+  [rcutils|/root/fastlio_verify_ws/src/fast_lio/src/ros2node.cpp:106] error initializing logging: 
+  /root/fastlio_verify_ws/src/fast_lio/src/ros2node.cpp
+  [rcutils|/root/fastlio_verify_ws/src/fast_lio/src/fastlio_core.cpp:345] error initializing logging: 
+  /root/fastlio_verify_ws/src/fast_lio/

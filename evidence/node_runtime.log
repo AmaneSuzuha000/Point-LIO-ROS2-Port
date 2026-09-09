@@ -1,0 +1,7 @@
+[INFO] [1788538417.805305358] [fast_lio]: FAST-LIO ROS2 node ready: lidar=/lidar_points imu=/imu publish=20.0Hz
+Multi thread started 
+[INFO] [1788538423.805411274] [fast_lio]: IMU Initial Done
+[WARN] [1788538423.805487699] [fast_lio]: No point, skip this scan!
+
+[INFO] [1788538426.538660721] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+Rebuild thread terminated normally

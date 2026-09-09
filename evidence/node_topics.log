@@ -1,0 +1,24 @@
+# launch: ros2 run fast_lio fastlio_mapping --ros-args -p preprocess.lidar_type:=4 -p publish.frequency:=20.0
+
+$ ros2 node list
+/fast_lio
+
+$ ros2 topic list
+/Odometry
+/cloud_registered
+/fast_lio/vio
+/imu
+/lidar_points
+/parameter_events
+/path
+/rosout
+/tf
+
+$ ros2 param get /fast_lio preprocess.lidar_type
+Integer value is: 4
+$ ros2 param get /fast_lio publish.frequency
+Double value is: 20.0
+
+# WRONG NAME (no namespace) is silently ignored even with --ros-args:
+$ ros2 param get /fast_lio lidar_type
+Parameter not set

@@ -1,0 +1,68 @@
+# Point-LIO ROS2 参数系统三个运行时坑（可复现）
+# 生成脚本：migration_lab/repro_param_landmines.sh
+
+================================================================
+坑 1  YAML 的顶层节点名选择器不匹配 -> 参数**一条都没加载**，且不报错
+================================================================
+# avia.yaml 第一行是 'point_lio:'，这是 ROS2 的节点名选择器。
+# 但可执行文件叫 pointlio_mapping，直接 ros2 run 时节点名 = pointlio_mapping，
+# 与选择器不相交 -> 整个 params-file 被忽略 -> gravity 等数组参数为空。
+# ROS1 里 \'<rosparam command="load" ns="private"/>\' 无条件作用于本节点私有命名空间，
+# 没有这个坑。
+
+$ /root/pointlio_ros2_ws/install/point_lio/lib/point_lio/pointlio_mapping --ros-args --params-file avia.yaml          # 节点名不匹配
+repro_param_landmines.sh: line 85: 46021 Segmentation fault      timeout 8 "$BIN" --ros-args --params-file "$CFG" > a.out 2>&1
+  EXIT=139  (139=SIGSEGV：空 gravity 向量被 Eigen 逗号初始化越界写)
+  | timeout: the monitored command dumped core
+
+$ /root/pointlio_ros2_ws/install/point_lio/lib/point_lio/pointlio_mapping --ros-args -r __node:=point_lio --params-file avia.yaml   # 修复：对齐节点名
+  EXIT=124  (124=timeout，说明进程正常活着直到被杀)
+  | lidar_type: 1
+  | ~~~~/root/pointlio_ros2_ws/src/point_lio/ file opened
+
+# 本仓库的 launch 文件里 Node(name='point_lio') 正是为此而写，
+# 见 launch/mapping_avia.launch.py。
+
+================================================================
+坑 2  YAML 整数数组 vs std::vector<double>：ROS2 强类型，ROS1 会隐式转
+================================================================
+# 上游 config 里 extrinsic_R: [1, 0, 0, 0, 1, 0, 0, 0, 1]（无小数点）
+# ROS1 nh.param<vector<double>> 会把 int 逐个转 double；ROS2 参数是强类型的。
+
+$ /root/pointlio_ros2_ws/install/point_lio/lib/point_lio/pointlio_mapping --ros-args -r __node:=point_lio --params-file int_array.yaml
+repro_param_landmines.sh: line 85: 46051 Aborted                 timeout 8 "$BIN" --ros-args -r __node:=point_lio --params-file /tmp/plrun/int_array.yaml > c.out 2>&1
+  EXIT=134  (134=abort，未捕获异常)
+  | terminate called after throwing an instance of 'rclcpp::exceptions::InvalidParameterTypeException'
+  |   what():  parameter 'mapping.extrinsic_R' has invalid type: Wrong parameter type, parameter {mapping.extrinsic_R} is of type {double_array}, setting it to {integer_array} is not allowed.
+  | timeout: the monitored command dumped core
+
+# 修复：config 里所有浮点数组元素写成带小数点的形式（1.0 而非 1）。
+# 本仓库 4 份 config 已由 migration_lab 的 patch_yaml.py 统一转换，
+# 转换后 56 个参数全部可被 declare_parameter 接受。
+
+================================================================
+坑 3  重复 declare_parameter：上游把 mapping.lidar_meas_cov 读了两次
+================================================================
+# ROS1 nh.param 重复读同一键合法；ROS2 重复 declare 抛 ParameterAlreadyDeclared。
+  config: 24:      lidar_meas_cov: 0.01   # 0.001; 0.01
+  code:   54:  // 上游 parameters.cpp 把 mapping.lidar_meas_cov 读了两次，ROS2 重复声明会抛
+  code:   90:  laser_point_cov = get_param<double>(nh, "mapping.lidar_meas_cov", 0.1);
+  code:   119:  laser_point_cov = get_param<double>(nh, "mapping.lidar_meas_cov", 0.1);
+
+# 修复：get_param() 里先 has_parameter() 再 declare（parameters.cpp:55-57）
+  | // 这里用模板把声明+读取包回一行，保持 56 个参数逐行 diff 最小
+  | template <typename T>
+  | T get_param(rclcpp::Node::SharedPtr &nh, const std::string &name, const T &default_value)
+  | {
+  |   // ROS1: nh.param<T>(key, var, def) 一步完成；ROS2 必须先声明再取，
+  |   // 否则 get_parameter 抛 ParameterNotDeclaredException。
+  |   // 上游 parameters.cpp 把 mapping.lidar_meas_cov 读了两次，ROS2 重复声明会抛
+  |   // ParameterAlreadyDeclaredException，所以先 has_parameter 再声明
+  |   if (!nh->has_parameter(name))
+  |     nh->declare_parameter(name, default_value);
+  |   return nh->get_parameter(name).get_value<T>();
+  | }
+  | 
+
+$ ros2 launch point_lio mapping_avia.launch.py rviz:=false   # 对照：修复后可正常启动
+  | [INFO] [pointlio_mapping-1]: process started with pid [46079]
